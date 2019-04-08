@@ -17,6 +17,10 @@ This project is part of the [IoT Engineering](../../../fhnw-iot) course.
 ## Deliverables
 The following deliverables are mandatory.
 
+### Reference model
+
+![Reference Model, Connected Plants](Images/Plants_ReferenceModel.png)
+
 ### Source code
 Source code, Arduino C, JS or Python, committed to (this) project repo.
 
