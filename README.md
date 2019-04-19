@@ -1,6 +1,6 @@
 # IoT Engineering
 ## Project Connected Plants
-
+[![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/)
 ## Introduction
 This project is part of the [IoT Engineering](../../../fhnw-iot) course.
 
