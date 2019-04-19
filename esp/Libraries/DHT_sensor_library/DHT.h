@@ -6,11 +6,8 @@ written by Adafruit Industries
 #ifndef DHT_H
 #define DHT_H
 
-#if ARDUINO >= 100
- #include "Arduino.h"
-#else
- #include "WProgram.h"
-#endif
+#include "Arduino.h"
+
 
 
 // Uncomment to enable printing out nice debug messages.
