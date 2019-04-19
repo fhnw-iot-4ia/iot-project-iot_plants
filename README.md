@@ -57,3 +57,8 @@ Working end-to-end prototype, "device to cloud", part of your 10' presentation.
 
 ## Submission deadline
 Commit and push to (this) project repo before Demo Day, _03.06.2019, 00:00_.
+
+## Bibliography
+* https://www.instructables.com/id/ESP8266-Soil-Moisture-Sensor-With-Arduino-IDE/
+
+
