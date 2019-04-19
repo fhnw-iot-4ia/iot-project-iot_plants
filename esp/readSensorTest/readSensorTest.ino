@@ -1,4 +1,4 @@
-#include "ESP8266WiFi.h"
+#include <ESP8266WiFi.h>
 #include <time.h>
 #include "ThingSpeak.h"
 #include "secrets.h"
@@ -52,8 +52,4 @@ void loop()
 int getMoistureSensorData()
 {
     return analogRead(MOISTURE);
-}
-
-int getLightSensorData()
-{
 }
