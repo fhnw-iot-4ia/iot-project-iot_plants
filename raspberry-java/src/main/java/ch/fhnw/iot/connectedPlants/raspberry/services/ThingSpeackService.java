@@ -10,6 +10,8 @@ import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -17,6 +19,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class ThingSpeackService implements Service {
     private static Logger logger = LogManager.getLogger(CallService.class.getName());
+    private static String MESSURE_VALUE = "moisture";
 
     public void runService() throws IOException, HttpException {
         logger.info("ThingSpeack Service started");
@@ -45,22 +48,33 @@ public class ThingSpeackService implements Service {
     private int getMoistureValue(ThingSpeakResult result) {
         int fieldNumber = getFieldNumberMoister(result);
 
-        int lastElement = result.getFeeds().size() -1;
-
-//        result.getFeeds().get(lastElement).getField+fieldNumber();
-        return 0;
+        int lastElement = result.getFeeds().size() - 1;
+        String methodeName = String.format("getField%s", String.valueOf(1));
+        String messureValue = null;
+        try {
+            Object obj = result.getFeeds().get(lastElement);
+            Method method = result.getFeeds().get(lastElement).getClass().getMethod(methodeName);
+            messureValue = (String) method.invoke(obj);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return Integer.parseInt(messureValue);
     }
 
     private int getFieldNumberMoister(ThingSpeakResult result) {
-        if (result.getChannel().getField1().contains("moisture"))
+        if (result.getChannel().getField1().contains(MESSURE_VALUE))
             return 1;
-        else if (result.getChannel().getField2().contains("moisture"))
+        else if (result.getChannel().getField2().contains(MESSURE_VALUE))
             return 2;
-        else if (result.getChannel().getField3().contains("moisture"))
+        else if (result.getChannel().getField3().contains(MESSURE_VALUE))
             return 3;
-        else if (result.getChannel().getField4().contains("moisture"))
+        else if (result.getChannel().getField4().contains(MESSURE_VALUE))
             return 4;
-        else if (result.getChannel().getField5().contains("moisture"))
+        else if (result.getChannel().getField5().contains(MESSURE_VALUE))
             return 5;
         return 0;
     }
