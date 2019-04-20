@@ -3,6 +3,7 @@ package ch.fhnw.iot.connectedPlants.raspberry.services;
 import ch.fhnw.iot.connectedPlants.raspberry.entity.ThingSpeakResult;
 import com.google.gson.Gson;
 import org.apache.http.Header;
+import org.apache.http.HttpException;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -17,9 +18,9 @@ import java.util.List;
 public class CallService {
 
 
-    static Logger logger = LogManager.getLogger(CallService.class.getName());
+    private static Logger logger = LogManager.getLogger(CallService.class.getName());
 
-    public static ThingSpeakResult httpGet(String url, List<Header> headers) throws IOException {
+    public static ThingSpeakResult httpGet(String url, List<Header> headers) throws IOException, HttpException {
         if (url == null | url.isEmpty()) {
             throw new IllegalArgumentException("url is not specified");
         }
@@ -40,6 +41,9 @@ public class CallService {
         int resultCode = response.getStatusLine().getStatusCode();
         if (resultCode >= 200 && resultCode <= 300) {
             logger.info("Get was Successfull with Code: " + resultCode);
+        } else {
+            logger.error("Get had an error with Code: " + resultCode + " and Error Message:" + response.getStatusLine().getReasonPhrase());
+            throw new HttpException("Error in Getter");
         }
 
         ThingSpeakResult result = convert(EntityUtils.toString(response.getEntity()));
