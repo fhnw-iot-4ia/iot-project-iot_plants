@@ -1,19 +1,21 @@
 
 package ch.fhnw.iot.connectedPlants.raspberry.entity;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class ThingSpeakResult {
 
+    public int resultCode;
     @SerializedName("channel")
     @Expose
     private Channel channel;
     @SerializedName("feeds")
     @Expose
     private List<Feed> feeds = null;
-    public int resultCode;
+
     public Channel getChannel() {
         return channel;
     }

@@ -19,7 +19,7 @@ public class CallService {
 
     static Logger logger = LogManager.getLogger(CallService.class.getName());
 
-    public ThingSpeakResult httpGet(String url, List<Header> headers) throws IOException {
+    public static ThingSpeakResult httpGet(String url, List<Header> headers) throws IOException {
         if (url == null | url.isEmpty()) {
             throw new IllegalArgumentException("url is not specified");
         }
@@ -48,7 +48,7 @@ public class CallService {
         return result;
     }
 
-    private ThingSpeakResult convert(String entity) {
+    private static ThingSpeakResult convert(String entity) {
         Gson gson = new Gson();
         return gson.fromJson(entity, ThingSpeakResult.class);
     }
