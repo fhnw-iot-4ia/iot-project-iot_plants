@@ -15,21 +15,20 @@ const char *myWriteAPIKey = SECRET_WRITE_APIKEY;
 
 /*********** Sensor Connectors ************/
 // Humidity & Temperature
-#define DHTPIN 0
+#define DHT_PIN 0
 #define DHTTYPE DHT11
 DHTesp dht;
 
 // Moisture
 // http://wiki.seeedstudio.com/Grove-Moisture_Sensor/
-int MOISTURE = A0;
 #define MOISTURE_PIN A0
 
 // Light
 #define LIGHT_PIN 2
 
+// Variables to update
 float humidity = 0;
 float temperature = 0;
-
 String myStatus = "";
 
 void setup()
@@ -37,7 +36,7 @@ void setup()
   Serial.begin(115200);
 
   // Setup DHTesp for Temperature and Humidity Sensor
-  dht.setup(DHTPIN, DHTesp::DHTTYPE);
+  dht.setup(DHT_PIN, DHTesp::DHTTYPE);
 
   // Set timezone
   const int timezone = 0;
