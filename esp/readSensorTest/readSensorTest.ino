@@ -1,7 +1,7 @@
 #include <DHTesp.h>
 #include <ESP8266WiFi.h>
 #include <time.h>
-#include "ThingSpeak.h"
+#include <ThingSpeak.h>
 #include "secrets.h"
 
 // WIFI Settings from secrets.h
@@ -15,8 +15,8 @@ const char *myWriteAPIKey = SECRET_WRITE_APIKEY;
 
 /*********** Sensor Connectors ************/
 // Humidity & Temperature
-#define DHT_PIN 0
-#define DHTTYPE DHT11
+#define DHT_PIN 2
+#define DHT_TYPE DHT11
 DHTesp dht;
 
 // Moisture
@@ -24,9 +24,11 @@ DHTesp dht;
 #define MOISTURE_PIN A0
 
 // Light
-#define LIGHT_PIN 2
+#define LIGHT_PIN 0
 
 // Variables to update
+float moisture = 0; 
+float light = 0; 
 float humidity = 0;
 float temperature = 0;
 String myStatus = "";
@@ -34,10 +36,12 @@ String myStatus = "";
 void setup()
 {
   Serial.begin(115200);
-
+  Serial.println("Setup started"); 
   // Setup DHTesp for Temperature and Humidity Sensor
-  dht.setup(DHT_PIN, DHTesp::DHTTYPE);
-
+  dht.setup(DHT_PIN, DHTesp::DHT_TYPE);
+  
+  connectWifi();
+  
   // Set timezone
   const int timezone = 0;
   const int dst_off = 0;
@@ -48,29 +52,19 @@ void setup()
     delay(500);
   }
 
-  connectWifi();
-
   ThingSpeak.begin(client); // Initialize ThingSpeak
+  Serial.println("Setup finished"); 
 }
 void loop()
 {
-
+  moisture = analogRead(MOISTURE_PIN);
+  light = analogRead(LIGHT_PIN);
   humidity = dht.getHumidity();
   temperature = dht.getTemperature();
   printToConsole();
   updateThinkSpeak();
 
-  delay(10000);
-}
-
-int getMoistureSensorData()
-{
-  return analogRead(MOISTURE_PIN);
-}
-
-int getLightSensorData()
-{
-  return analogRead(LIGHT_PIN);
+  delay(20000);
 }
 
 void printToConsole()
@@ -82,9 +76,9 @@ void printToConsole()
   }
 
   Serial.print("Moisture = ");
-  Serial.println(getMoistureSensorData());
+  Serial.println(moisture);
   Serial.print("Light = ");
-  Serial.println(getLightSensorData());
+  Serial.println(light);
   Serial.print("Temperature = ");
   Serial.println(temperature);
   Serial.print("Humidity = ");
@@ -121,8 +115,8 @@ void updateThinkSpeak()
     return;
   }
   // set the fields with the values
-  ThingSpeak.setField(1, getMoistureSensorData());
-  ThingSpeak.setField(2, getLightSensorData());
+  ThingSpeak.setField(1, moisture);
+  ThingSpeak.setField(2, light);
   ThingSpeak.setField(3, temperature);
   ThingSpeak.setField(4, humidity);
 
