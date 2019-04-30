@@ -1,4 +1,4 @@
-package ch.fhnw.iot.connectedPlants.raspberry.services;
+package ch.fhnw.iot.connectedPlants.raspberry.service;
 
 import ch.fhnw.iot.connectedPlants.raspberry.entity.ThingSpeakResult;
 import com.google.gson.Gson;
@@ -21,7 +21,7 @@ public class CallService {
     private static Logger logger = LogManager.getLogger(CallService.class.getName());
 
     public static ThingSpeakResult httpGet(String url, List<Header> headers) throws IOException, HttpException {
-        if (url == null | url.isEmpty()) {
+        if (url == null || url.isEmpty()) {
             throw new IllegalArgumentException("url is not specified");
         }
 

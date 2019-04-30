@@ -1,5 +1,7 @@
-package ch.fhnw.iot.connectedPlants.raspberry.services;
+package ch.fhnw.iot.connectedPlants.raspberry.service;
 
+import ch.fhnw.iot.connectedPlants.raspberry.PlantProperties;
+import ch.fhnw.iot.connectedPlants.raspberry.entity.Feed;
 import ch.fhnw.iot.connectedPlants.raspberry.entity.ThingSpeakResult;
 import ch.fhnw.iot.connectedPlants.raspberry.util.ServiceUtil;
 import org.apache.http.Header;
@@ -19,18 +21,17 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class ThingSpeackService implements Service {
     private static Logger logger = LogManager.getLogger(CallService.class.getName());
-    private static String MESSURE_VALUE = "moisture";
+    private static String MOISTURE_FIELD = "moisture";
 
     public void runService() throws IOException, HttpException {
         logger.info("ThingSpeack Service started");
-        CallService callService = new CallService();
+//        CallService callService = new CallService();
 
         Properties prop = ServiceUtil.loadProperty();
 
-
-        String url = prop.getProperty("url.thingspeack.get.updateChannel");
+        String url = prop.getProperty(PlantProperties.URL_THINGSPEAK_GET_UPDATECHANNEL);
         List<Header> headers = getHeaders(prop);
-        ThingSpeakResult result = null;
+        ThingSpeakResult result;
 
         try {
             result = CallService.httpGet(url, headers);
@@ -42,19 +43,20 @@ public class ThingSpeackService implements Service {
             throw e;
         }
 
-        int moistureValue = getMoistureValue(result);
+        double moistureValue = getMoistureValue(result);
+
+
     }
 
-    private int getMoistureValue(ThingSpeakResult result) {
-        int fieldNumber = getFieldNumberMoister(result);
-
-        int lastElement = result.getFeeds().size() - 1;
-        String methodeName = String.format("getField%s", String.valueOf(1));
-        String messureValue = null;
+    private double getMoistureValue(ThingSpeakResult thingSpeakResult) {
+        String fieldNumber = getMoistureField(thingSpeakResult);
+        int lastElement = thingSpeakResult.getFeeds().size() - 1;
+        String methodName = String.format("getField%s", fieldNumber);
+        String measureValue = null;
         try {
-            Object obj = result.getFeeds().get(lastElement);
-            Method method = result.getFeeds().get(lastElement).getClass().getMethod(methodeName);
-            messureValue = (String) method.invoke(obj);
+            Feed obj = thingSpeakResult.getFeeds().get(lastElement);
+            Method method = obj.getClass().getMethod(methodName);
+            measureValue = (String) method.invoke(obj);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -62,21 +64,21 @@ public class ThingSpeackService implements Service {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-        return Integer.parseInt(messureValue);
+        return Double.parseDouble(measureValue);
     }
 
-    private int getFieldNumberMoister(ThingSpeakResult result) {
-        if (result.getChannel().getField1().contains(MESSURE_VALUE))
-            return 1;
-        else if (result.getChannel().getField2().contains(MESSURE_VALUE))
-            return 2;
-        else if (result.getChannel().getField3().contains(MESSURE_VALUE))
-            return 3;
-        else if (result.getChannel().getField4().contains(MESSURE_VALUE))
-            return 4;
-        else if (result.getChannel().getField5().contains(MESSURE_VALUE))
-            return 5;
-        return 0;
+    private String getMoistureField(ThingSpeakResult thingSpeakResult) {
+        if (thingSpeakResult.getChannel().getField1().contains(MOISTURE_FIELD))
+            return "1";
+        else if (thingSpeakResult.getChannel().getField2().contains(MOISTURE_FIELD))
+            return "2";
+        else if (thingSpeakResult.getChannel().getField3().contains(MOISTURE_FIELD))
+            return "3";
+        else if (thingSpeakResult.getChannel().getField4().contains(MOISTURE_FIELD))
+            return "4";
+        else if (thingSpeakResult.getChannel().getField5().contains(MOISTURE_FIELD))
+            return "5";
+        return "1";
     }
 
     @NotNull

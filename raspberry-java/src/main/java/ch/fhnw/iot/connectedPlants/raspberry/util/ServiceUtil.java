@@ -1,6 +1,6 @@
 package ch.fhnw.iot.connectedPlants.raspberry.util;
 
-import ch.fhnw.iot.connectedPlants.raspberry.services.Service;
+import ch.fhnw.iot.connectedPlants.raspberry.service.Service;
 
 import java.io.IOException;
 import java.util.Properties;

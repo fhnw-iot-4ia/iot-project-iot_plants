@@ -1,4 +1,4 @@
-package ch.fhnw.iot.connectedPlants.raspberry.services;
+package ch.fhnw.iot.connectedPlants.raspberry.service;
 
 import org.apache.http.HttpException;
 

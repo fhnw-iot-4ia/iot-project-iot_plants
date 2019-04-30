@@ -1,7 +1,7 @@
-package ch.fhnw.iot.connectedPlants.raspberry.factories;
+package ch.fhnw.iot.connectedPlants.raspberry.factory;
 
-import ch.fhnw.iot.connectedPlants.raspberry.services.Service;
-import ch.fhnw.iot.connectedPlants.raspberry.services.ThingSpeackService;
+import ch.fhnw.iot.connectedPlants.raspberry.service.Service;
+import ch.fhnw.iot.connectedPlants.raspberry.service.ThingSpeackService;
 
 public class ThingSpeakFactory extends ServiceFactory {
     @Override

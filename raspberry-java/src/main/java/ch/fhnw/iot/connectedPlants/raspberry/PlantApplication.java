@@ -1,4 +1,3 @@
-/*
 package ch.fhnw.iot.connectedPlants.raspberry;
 
 import ch.fhnw.iot.connectedPlants.raspberry.factory.MQTTFactory;
@@ -7,12 +6,22 @@ import ch.fhnw.iot.connectedPlants.raspberry.factory.ThingSpeakFactory;
 import ch.fhnw.iot.connectedPlants.raspberry.service.Service;
 import ch.fhnw.iot.connectedPlants.raspberry.util.ServiceUtil;
 import org.apache.http.HttpException;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.IOException;
 import java.util.Properties;
 
-public class Main {
+@SpringBootApplication
+public class PlantApplication {
     public static void main(String[] args) {
+        SpringApplication.run(PlantApplication.class, args);
+
+        initServices();
+    }
+
+    private static void initServices() {
+
         Properties props = ServiceUtil.loadProperty();
 
         new Thread(() -> {
@@ -40,6 +49,6 @@ public class Main {
                 e.printStackTrace();
             }
         }).start();
-
     }
-}*/
+
+}
