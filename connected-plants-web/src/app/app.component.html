@@ -3,19 +3,47 @@
   <h1>
     Welcome to {{ title }}!
   </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+  <h2>
+    Current Threshold: {{ threshold }} <br>
+  </h2>
 
+
+  <div class="container">
+    <iframe width="450" height="260" style="border: 1px solid #cccccc;"
+      src="https://thingspeak.com/channels/753425/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+
+
+    <iframe width="450" height="260" style="border: 1px solid #cccccc;"
+      src="https://thingspeak.com/channels/753425/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+
+
+    <iframe width="450" height="260" style="border: 1px solid #cccccc;"
+      src="https://thingspeak.com/channels/753425/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+
+
+    <iframe width="450" height="260" style="border: 1px solid #cccccc;"
+      src="https://thingspeak.com/channels/753425/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+
+
+
+  </div>
+  <form [formGroup]="angForm" novalidate (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Set new Threshold:</label>
+      <input formControlName="name" type="number" style="width:150px">
+    </div>
+    <div
+      *ngIf="angForm.controls['name'].invalid && (angForm.controls['name'].dirty || angForm.controls['name'].touched)"
+      class="alert alert-danger">
+      <div *ngIf="angForm.controls['name'].errors.required">
+        New value is required.
+      </div>
+    </div>
+    <button type="submit" [disabled]="angForm.pristine || angForm.invalid" class="btn btn-success">
+      Save
+    </button>
+  </form>
+  <br />
+
+</div>
 <router-outlet></router-outlet>
