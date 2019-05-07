@@ -1,4 +1,4 @@
-package ch.fhnw.iot.connectedPlants.raspberry.entity;
+package ch.fhnw.iot.connectedPlants.raspberry.domain;
 
 
 import org.springframework.data.annotation.Id;

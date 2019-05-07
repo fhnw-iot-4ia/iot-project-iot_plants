@@ -1,7 +1,7 @@
 package ch.fhnw.iot.connectedPlants.raspberry.web;
 
-import ch.fhnw.iot.connectedPlants.raspberry.entity.ConnectedPlants;
-import ch.fhnw.iot.connectedPlants.raspberry.entity.ConnectedPlantsRepository;
+import ch.fhnw.iot.connectedPlants.raspberry.domain.ConnectedPlants;
+import ch.fhnw.iot.connectedPlants.raspberry.domain.ConnectedPlantsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/connected-plants")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin()
 public class ConnectedPlantsController {
 
     @Autowired

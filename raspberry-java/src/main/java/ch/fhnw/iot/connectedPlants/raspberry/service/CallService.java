@@ -38,6 +38,7 @@ public class CallService {
         }
 
         HttpResponse response = client.execute(request);
+
         int resultCode = response.getStatusLine().getStatusCode();
         if (resultCode >= 200 && resultCode <= 300) {
             logger.info("Get was Successfull with Code: " + resultCode);

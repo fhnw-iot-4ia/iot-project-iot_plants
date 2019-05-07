@@ -113,7 +113,7 @@ hs_err_pid*
 # Compiled class file
 
 # Log file
-
+.lck
 # BlueJ files
 
 # Mobile Tools for Java (J2ME)

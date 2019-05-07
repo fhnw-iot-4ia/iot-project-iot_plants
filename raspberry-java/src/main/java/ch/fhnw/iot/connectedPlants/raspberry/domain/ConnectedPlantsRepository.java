@@ -1,8 +1,7 @@
-package ch.fhnw.iot.connectedPlants.raspberry.entity;
+package ch.fhnw.iot.connectedPlants.raspberry.domain;
 
+import ch.fhnw.iot.connectedPlants.raspberry.domain.ConnectedPlants;
 import org.springframework.data.mongodb.repository.MongoRepository;
-
-import java.util.List;
 
 public interface ConnectedPlantsRepository extends MongoRepository<ConnectedPlants, String> {
 

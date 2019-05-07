@@ -1,54 +1,48 @@
 package ch.fhnw.iot.connectedPlants.raspberry;
 
-import ch.fhnw.iot.connectedPlants.raspberry.factory.MQTTFactory;
+import ch.fhnw.iot.connectedPlants.raspberry.domain.ConnectedPlantsRepository;
 import ch.fhnw.iot.connectedPlants.raspberry.factory.ServiceFactory;
 import ch.fhnw.iot.connectedPlants.raspberry.factory.ThingSpeakFactory;
 import ch.fhnw.iot.connectedPlants.raspberry.service.Service;
 import ch.fhnw.iot.connectedPlants.raspberry.util.ServiceUtil;
 import org.apache.http.HttpException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 import java.io.IOException;
 import java.util.Properties;
 
 @SpringBootApplication
-public class PlantApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(PlantApplication.class, args);
+public class PlantApplication extends SpringBootServletInitializer {
+    private static Logger logger = LogManager.getLogger(PlantApplication.class.getName());
 
+    public static void main(String[] args) throws InterruptedException, IOException, HttpException {
+        logger.info("Application started");
+        SpringApplication.run(PlantApplication.class, args);
         initServices();
     }
 
-    private static void initServices() {
-
+    public static void initServices() throws InterruptedException, IOException, HttpException {
         Properties props = ServiceUtil.loadProperty();
 
-        new Thread(() -> {
-            ServiceFactory serviceFactory = new ThingSpeakFactory();
-            Service service = serviceFactory.getService((String) props.get(PlantProperties.SERVICE_NAME));
+        ServiceFactory serviceFactory = new ThingSpeakFactory();
+        Service thingSpeakService = serviceFactory.getService((String) props.get(PlantProperties.SERVICE_NAME));
 
+
+        while (true) {
             try {
-                service.runService();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (HttpException e) {
-                e.printStackTrace();
+                // Pullt Daten von Matlab und verarbeitet diese
+                thingSpeakService.runService();
+                int intervall = Integer.parseInt(props.getProperty(PlantProperties.SERVICE_INTERVALL));
+                Thread.sleep(intervall);
+            } catch (Exception e) {
+                logger.error(e.getMessage());
+                throw e;
             }
-        }).start();
-
-        new Thread(() -> {
-            ServiceFactory mqttFactory = new MQTTFactory();
-            Service mqttService = mqttFactory.getService("");
-
-            try {
-                mqttService.runService();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (HttpException e) {
-                e.printStackTrace();
-            }
-        }).start();
+        }
     }
-
 }
