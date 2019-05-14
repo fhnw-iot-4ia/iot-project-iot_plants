@@ -9,7 +9,6 @@ apply plugin: 'io.spring.dependency-management'
 
 
 group 'connected-plants'
-version '1.0-SNAPSHOT'
 
 sourceCompatibility = 11
 
@@ -40,6 +39,9 @@ dependencies {
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     compile 'org.mongodb:mongo-java-driver:3.11.0-beta2'
+
+    // Amazon AWS
+    compile("com.amazonaws:aws-java-sdk-sns:1.11.550")
 }
 
 compileKotlin {

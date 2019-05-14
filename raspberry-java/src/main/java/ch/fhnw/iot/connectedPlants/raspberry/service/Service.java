@@ -6,5 +6,5 @@ import java.io.IOException;
 
 public interface Service {
 
-    void runService() throws IOException, HttpException;
+    void runService() throws Exception;
 }

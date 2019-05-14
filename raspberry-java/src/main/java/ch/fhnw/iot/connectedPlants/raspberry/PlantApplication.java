@@ -1,32 +1,28 @@
 package ch.fhnw.iot.connectedPlants.raspberry;
 
-import ch.fhnw.iot.connectedPlants.raspberry.domain.ConnectedPlantsRepository;
 import ch.fhnw.iot.connectedPlants.raspberry.factory.ServiceFactory;
 import ch.fhnw.iot.connectedPlants.raspberry.factory.ThingSpeakFactory;
 import ch.fhnw.iot.connectedPlants.raspberry.service.Service;
 import ch.fhnw.iot.connectedPlants.raspberry.util.ServiceUtil;
-import org.apache.http.HttpException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
-import java.io.IOException;
 import java.util.Properties;
 
 @SpringBootApplication
 public class PlantApplication extends SpringBootServletInitializer {
     private static Logger logger = LogManager.getLogger(PlantApplication.class.getName());
 
-    public static void main(String[] args) throws InterruptedException, IOException, HttpException {
+    public static void main(String[] args) throws Exception {
         logger.info("Application started");
         SpringApplication.run(PlantApplication.class, args);
         initServices();
     }
 
-    public static void initServices() throws InterruptedException, IOException, HttpException {
+    public static void initServices() throws Exception {
         Properties props = ServiceUtil.loadProperty();
 
         ServiceFactory serviceFactory = new ThingSpeakFactory();

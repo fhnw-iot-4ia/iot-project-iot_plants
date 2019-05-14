@@ -4,16 +4,15 @@ import ch.fhnw.iot.connectedPlants.raspberry.PlantProperties;
 import ch.fhnw.iot.connectedPlants.raspberry.entity.Channel;
 import ch.fhnw.iot.connectedPlants.raspberry.entity.Feed;
 import ch.fhnw.iot.connectedPlants.raspberry.entity.ThingSpeakResult;
+import ch.fhnw.iot.connectedPlants.raspberry.service.observer.ObserverObject;
 import ch.fhnw.iot.connectedPlants.raspberry.util.ServiceUtil;
 import org.apache.http.Header;
-import org.apache.http.HttpException;
 import org.apache.http.message.BasicHeader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -22,19 +21,18 @@ public class ThingSpeackService implements Service {
     private static String MOISTURE_FIELD = "moisture";
 
     private final List<ObserverObject> observers = new ArrayList<>();
+    private final Properties prop = ServiceUtil.loadProperty();
 
-
-    public ThingSpeackService(ObserverObject... obj) {
+    public ThingSpeackService(List<ObserverObject> obj) {
         if (obj == null) {
             throw new IllegalArgumentException("obj not specified");
         }
-        observers.addAll(Arrays.asList(obj));
+        observers.addAll(obj);
     }
 
-    public void runService() throws IOException, HttpException {
+    public void runService() throws Exception {
         logger.info("ThingSpeack Service started");
 
-        Properties prop = ServiceUtil.loadProperty();
 
         String url = prop.getProperty(PlantProperties.URL_THINGSPEAK_GET_UPDATECHANNEL);
         List<Header> headers = getHeaders(prop);
@@ -49,7 +47,7 @@ public class ThingSpeackService implements Service {
         }
     }
 
-    private void updateStoredObject(ThingSpeakResult thingSpeakResult) throws IOException, HttpException {
+    private void updateStoredObject(ThingSpeakResult thingSpeakResult) throws Exception {
         Document valFromDB = ServiceUtil.getDocument();
         Set<Map.Entry<String, Object>> set = valFromDB.entrySet();
 
@@ -63,15 +61,20 @@ public class ThingSpeackService implements Service {
         double moisture = getValue(thingSpeakResult, MOISTURE_FIELD);
 
         if (moisture < threshold.get()) {
-            for (ObserverObject observer : observers) {
-                observer.run();
-            }
+            prop.setProperty(PlantProperties.MQTT_CHANNEL_INFO, "1");
+        } else {
+            prop.setProperty(PlantProperties.MQTT_CHANNEL_INFO, "0");
         }
+
+        for (ObserverObject observer : observers) {
+            observer.run();
+        }
+
         ServiceUtil.saveDocument(valFromDB, moisture);
     }
 
     @NotNull
-    private Double getValue(ThingSpeakResult thingSpeakResult, String value) {
+    private double getValue(ThingSpeakResult thingSpeakResult, String value) {
         int lastElement = thingSpeakResult.getFeeds().size() - 1;
         Feed feed = thingSpeakResult.getFeeds().get(lastElement);
         Channel ch = thingSpeakResult.getChannel();

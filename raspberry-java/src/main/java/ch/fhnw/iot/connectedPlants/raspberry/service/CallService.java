@@ -25,7 +25,7 @@ public class CallService {
             throw new IllegalArgumentException("url is not specified");
         }
 
-        logger.info("Starting Get on: " + url);
+        logger.info(String.format("Starting Get on: %s", url));
 
         CloseableHttpClient client = HttpClientBuilder.create().build();
         HttpGet request = new HttpGet(url);
@@ -41,9 +41,9 @@ public class CallService {
 
         int resultCode = response.getStatusLine().getStatusCode();
         if (resultCode >= 200 && resultCode <= 300) {
-            logger.info("Get was Successfull with Code: " + resultCode);
+            logger.info(String.format("Get was Successfull with Code: %s", resultCode));
         } else {
-            logger.error("Get had an error with Code: " + resultCode + " and Error Message:" + response.getStatusLine().getReasonPhrase());
+            logger.error(String.format("Get had an error with Code: %s and Error Message: %s", resultCode, response.getStatusLine().getReasonPhrase()));
             throw new HttpException("Error in Getter");
         }
 

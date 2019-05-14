@@ -30,7 +30,7 @@ public class ConnectedPlantsController {
 
     @PutMapping(value = "{id}")
     @CrossOrigin
-    public ResponseEntity<List<ConnectedPlants>> putNewThreshold(@RequestBody ConnectedPlants newPlant, @PathVariable String id) {
+    public ResponseEntity putNewThreshold(@RequestBody ConnectedPlants newPlant, @PathVariable String id) {
         if (newPlant.getId() != null) {
             Optional<ConnectedPlants> toUpdate = connectedPlantRepository.findById(newPlant.getId());
             if (toUpdate.isPresent()) {
