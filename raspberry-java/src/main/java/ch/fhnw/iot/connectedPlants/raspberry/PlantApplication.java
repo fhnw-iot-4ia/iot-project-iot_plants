@@ -22,6 +22,7 @@ public class PlantApplication extends SpringBootServletInitializer {
         initServices();
     }
 
+
     public static void initServices() throws Exception {
         Properties props = ServiceUtil.loadProperty();
 
@@ -41,4 +42,5 @@ public class PlantApplication extends SpringBootServletInitializer {
             }
         }
     }
+
 }

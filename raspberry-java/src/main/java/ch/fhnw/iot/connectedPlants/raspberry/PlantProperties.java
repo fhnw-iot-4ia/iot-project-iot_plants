@@ -14,7 +14,10 @@ public class PlantProperties {
     public final static String MQTT_CHANNEL = "mqtt.channel";
     public final static String MQTT_USERNAME = "mqtt.username";
     public final static String MQTT_PASSWORD = "mqtt.password";
-    public final static String MQTT_CHANNEL_INFO = "mqtt.channel.information";
+
+    public final static String PUSH_ACCESSKEY = "push.accesskey";
+    public final static String PUSH_SECRETKEY = "push.secretkey";
+    public final static String PUSH_DIFFSEND = "push.diffSend";
 
 
     //MONGODB

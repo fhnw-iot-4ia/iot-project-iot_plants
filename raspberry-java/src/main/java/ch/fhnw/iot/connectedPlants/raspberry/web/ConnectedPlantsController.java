@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/connected-plants")
-@CrossOrigin()
+@CrossOrigin
 public class ConnectedPlantsController {
 
     @Autowired

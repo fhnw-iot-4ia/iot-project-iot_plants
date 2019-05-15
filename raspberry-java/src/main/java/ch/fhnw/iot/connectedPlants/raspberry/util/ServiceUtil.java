@@ -52,7 +52,7 @@ public class ServiceUtil {
         return result;
     }
 
-    public static void saveDocument(Document toSave, double moisture) {
+    public static void saveDocument(Document toSave, double moisture, String mqtt) {
         if (toSave == null) {
             throw new IllegalArgumentException("toSave is not specified");
         }
@@ -60,6 +60,17 @@ public class ServiceUtil {
         Object id = toSave.get("_id");
 
         collection.updateOne(Filters.eq("_id",id), Updates.set("measuredMoistureValue", moisture));
+        collection.updateOne(Filters.eq("_id",id), Updates.set("mqtt", mqtt));
+    }
+
+    public static void saveDocument(Document toSave, String lastEx) {
+        if (toSave == null) {
+            throw new IllegalArgumentException("toSave is not specified");
+        }
+
+        Object id = toSave.get("_id");
+
+        collection.updateOne(Filters.eq("_id",id), Updates.set("last", lastEx));
     }
 
     static {

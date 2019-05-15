@@ -14,8 +14,8 @@ public class ThingSpeakFactory extends ServiceFactory {
         if (serviceName.contains("ThingSpeak")) {
             ObserverObject mqttService = new MQTTService();
             PushService pushService = new PushService();
-            return new ThingSpeackService(Arrays.asList(mqttService));
-//            return new ThingSpeackService(Arrays.asList(mqttService, pushService));
+//            return new ThingSpeackService(Arrays.asList(mqttService));
+            return new ThingSpeackService(Arrays.asList(mqttService, pushService));
         }
         return null;
     }

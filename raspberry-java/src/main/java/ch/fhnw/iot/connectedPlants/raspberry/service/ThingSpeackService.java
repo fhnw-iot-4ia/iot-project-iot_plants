@@ -13,6 +13,8 @@ import org.apache.logging.log4j.Logger;
 import org.bson.Document;
 import org.jetbrains.annotations.NotNull;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -59,18 +61,49 @@ public class ThingSpeackService implements Service {
         });
 
         double moisture = getValue(thingSpeakResult, MOISTURE_FIELD);
-
+        String mqttValue = null;
         if (moisture < threshold.get()) {
-            prop.setProperty(PlantProperties.MQTT_CHANNEL_INFO, "1");
+            mqttValue = "1";
         } else {
-            prop.setProperty(PlantProperties.MQTT_CHANNEL_INFO, "0");
+            mqttValue = "0";
+        }
+        ServiceUtil.saveDocument(valFromDB, moisture, mqttValue);
+
+        if (isUpdate()) {
+            for (ObserverObject observer : observers) {
+                observer.run();
+            }
+        }
+    }
+
+    private boolean isUpdate() {
+        Document document = ServiceUtil.getDocument();
+        Set<Map.Entry<String, Object>> set = document.entrySet();
+
+        AtomicReference<String> lastEx = new AtomicReference<>();
+        set.forEach(v -> {
+            if (v.getKey().equals("last")) {
+                lastEx.set((String) v.getValue());
+            }
+        });
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        Date last = null;
+
+        try {
+            last = simpleDateFormat.parse(lastEx.get());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date now = new Date();
+        long diff = now.getTime() - last.getTime();
+        long maxDiff = Long.valueOf(prop.getProperty(PlantProperties.PUSH_DIFFSEND));
+        if (diff > maxDiff) {
+            ServiceUtil.saveDocument(document, simpleDateFormat.format(now));
+            return true;
         }
 
-        for (ObserverObject observer : observers) {
-            observer.run();
-        }
-
-        ServiceUtil.saveDocument(valFromDB, moisture);
+        return false;
     }
 
     @NotNull

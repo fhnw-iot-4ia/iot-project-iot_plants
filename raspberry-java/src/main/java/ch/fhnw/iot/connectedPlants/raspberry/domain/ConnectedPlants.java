@@ -17,6 +17,25 @@ public class ConnectedPlants {
     @Min(0)
     private Double measuredMoistureValue;
 
+    private String mqtt;
+
+    private String last;
+
+    public String getMqtt() {
+        return mqtt;
+    }
+
+    public void setMqtt(String mqtt) {
+        this.mqtt = mqtt;
+    }
+
+    public String getLast() {
+        return last;
+    }
+
+    public void setLast(String last) {
+        this.last = last;
+    }
 
     public String getId() {
         return _id;
