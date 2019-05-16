@@ -1,5 +1,6 @@
 # IoT Engineering
 ## Project Connected Plants
+A moisture and environmental sensor for your plants to get a information, whenever there is need for action. 
 
 ## Introduction
 This project is part of the [IoT Engineering](../../../fhnw-iot) course.
@@ -11,8 +12,8 @@ This project is part of the [IoT Engineering](../../../fhnw-iot) course.
 * Both team members are able to explain the project.
 
 ### Team members
-* @Prinzenrolle90, Mischa Imbiscuso
-* @cudemo, Vito Cudemo
+* [@Prinzenrolle90], Mischa Imbiscuso
+* [@cudemo], Vito Cudemo
 
 ## Deliverables
 The following deliverables are mandatory.
@@ -35,6 +36,10 @@ Source code, Arduino C, JS or Python, committed to (this) project repo.
 1) Embedded code / microcontroller firmware.
 2) Glue Code used on the gateway or "in the cloud".
 3) App or Web UI code, or IoT platform setup steps.
+
+##### Setup software
+* Edit [secrets.h](esp/readSensorTest/secrets.h) to set your ThingSpeak API Keys and WIFI Settings 
+
 
 ### Presentation
 4-slide presentation, PDF format, committed to (this) project repo.

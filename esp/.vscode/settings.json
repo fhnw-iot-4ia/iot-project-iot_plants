@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "*.ino": "c",
+        "array": "c",
+        "deque": "c",
+        "unordered_map": "c",
+        "vector": "c",
+        "initializer_list": "c",
+        "string": "c",
+        "adafruit_mqtt.h": "c",
+        "adafruit_mqtt_client.h": "c"
+    }
+}
