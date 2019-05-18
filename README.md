@@ -19,7 +19,7 @@ This project is part of the [IoT Engineering](../../../fhnw-iot) course.
 The following deliverables are mandatory.
 
 ### Source code
-Source code consists of: Arduino, Java Service and Angular Webserver
+Source code consists of: Arduino device for sensor information, Java Service running on Tomcat with REST API and Angular Webserver https://plants.imbiscuso.ch
 
 [PlantsFieldSensor for ESP8266](esp/PlantsFieldSensor/PlantsFieldSensor.ino)
 
@@ -27,16 +27,31 @@ Source code consists of: Arduino, Java Service and Angular Webserver
 
 [Plants Webservice used on Webserver](/connected-plants-web/src)
 
-Furthermore, we implementen an own MQTT Broker on a Raspberry Pi 3+, running hassio Home Assistant and DuckDNS Service for serving mqtt://mqtt.cudemo.ch. The MQTT Service has been setup to only allow authenticated connections. 
+Furthermore, we implemented an own MQTT Broker on a Raspberry Pi 3+, running hassio Home Assistant and DuckDNS Service for serving mqtt://mqtt.cudemo.ch:16290. The MQTT Service has been setup to only allow authenticated connections. User: esp / raspberry, password: iotmqtt
 
-### Reference model (has to be updated)
+### Reference model / Domain overview
 
 ![Reference Model, Connected Plants](Images/Plants_ReferenceModel.png)
 
 
 ##### Setup software
-* Edit [secrets.h](esp/PlantsFieldSensor/secrets.h) to set your ThingSpeak API Keys and WIFI Settings 
+* ESP8266
 
+1) Edit [secrets.h](esp/PlantsFieldSensor/secrets.h) to set your ThingSpeak API Keys and WIFI Settings 
+2) Attach sensors and actuator to ESP8266 
+* Sensors and Actuators:
+
+Type | Name | Pin ESP8266
+--- | --- | ---
+Sensor | DHT11 Temperature & Humidity Sensor | D2 -> 2
+Sensor | Grove Moisture Sensor | A0
+Actuator | Chainable RGB LED | D4, D5 -> 0, 15
+
+3) Attach to energy source and check ThingSpeak. Otherwise enable debug mode on ESP source-code
+
+* Plants Service (can be run on Raspberry)
+
+###TODO IMBISCUSO
 
 ### Presentation
 4-slide presentation, PDF format, committed to (this) project repo.
