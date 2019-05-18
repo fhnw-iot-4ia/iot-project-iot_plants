@@ -23,11 +23,11 @@ Source code consists of: Arduino, Java Service and Angular Webserver
 
 [PlantsFieldSensor for ESP8266](esp/PlantsFieldSensor/PlantsFieldSensor.ino)
 
-[Plants Service Java used on Raspberry or cloud](/raspberry-java/src/main/java/ch/fhnw/iot/connectedPlants/raspberry/PlantsApplication.java)
+[Plants Service Java used on Raspberry or cloud](/raspberry-java/src/main/java/ch/fhnw/iot/connectedPlants/raspberry/) 
 
-[Plants Webservice used on Webserver](/connected-plants-web/src/main.ts)
+[Plants Webservice used on Webserver](/connected-plants-web/src)
 
-### Reference model
+### Reference model (has to be updated)
 
 ![Reference Model, Connected Plants](Images/Plants_ReferenceModel.png)
 
@@ -49,7 +49,7 @@ Source code consists of: Arduino, Java Service and Angular Webserver
 ### Live demo
 Working end-to-end prototype, "device to cloud", part of your 10' presentation.
 
-[https://plants.imbiscuso.ch/](https://plants.imbiscuso.ch)
+[Connected Plants Webservice - https://plants.imbiscuso.ch](https://plants.imbiscuso.ch)
 
 1) ESP8266 is used in field to monitor plants.
 2) Every x minutes, the ESP sends the sensor data to ThingSpeak API.
