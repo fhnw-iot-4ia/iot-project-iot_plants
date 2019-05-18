@@ -46,6 +46,7 @@ Type | Name | Pin ESP8266
 Sensor | DHT11 Temperature & Humidity Sensor | D2 -> 2
 Sensor | Grove Moisture Sensor | A0
 Actuator | Chainable RGB LED | D4, D5 -> 0, 15
+(Future) Actuator | PUM
 
 3) Attach to energy source and check ThingSpeak. Otherwise enable debug mode on ESP source-code
 

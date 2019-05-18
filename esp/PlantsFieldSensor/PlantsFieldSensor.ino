@@ -1,9 +1,9 @@
-#include <ChainableLED.h>
-#include <DHTesp.h>
-#include <ESP8266WiFi.h>
-#include <ESP8266MQTTClient.h> // v1.0.4
-#include <time.h>
-#include <ThingSpeak.h>
+#include <ChainableLED.h>       // v1.0.0
+#include <DHTesp.h>             // v1.0.9
+#include <ESP8266WiFi.h>        // v1.0.0
+#include <ESP8266MQTTClient.h>  // v1.0.4
+#include <time.h>               // v2.5.0
+#include <ThingSpeak.h>         // v1.5.0
 #include "secrets.h"
 
 // Enable or disable DEBUG Mode to sysout to console
@@ -20,7 +20,6 @@ const char *myWriteAPIKey = SECRET_WRITE_APIKEY;
 
 // MQTT
 MQTTClient client;
-
 const char *mqttBrokerHost = MQTT_BROKER_HOST;
 const char *mqttPortnumber = MQTT_PORT;
 const char *mqttTopic = MQTT_TOPIC;
@@ -40,9 +39,7 @@ DHTesp dht;
 /*********** Actuator Connectors ************/
 #define RGB_PIN 0
 #define RGB_PIN2 15
-
 #define NUM_LEDS 5
-
 ChainableLED leds(RGB_PIN, RGB_PIN2, NUM_LEDS);
 
 // Variables to update
@@ -223,7 +220,7 @@ void loop()
     printToConsole();
   }
 
-  if (updateThingspeakCounter > 40000)
+  if (updateThingspeakCounter > 60000)
   {
     updateThinkSpeak();
     updateThingspeakCounter = 0;
