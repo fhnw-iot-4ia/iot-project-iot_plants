@@ -6,6 +6,9 @@
 #include <ThingSpeak.h>
 #include "secrets.h"
 
+// Enable or disable DEBUG Mode to sysout to console
+bool debug = false;
+
 // WIFI Settings from secrets.h
 const char ssid[] = SECRET_SSID;
 const char pass[] = SECRET_PASS;
@@ -34,27 +37,22 @@ DHTesp dht;
 // Moisture http://wiki.seeedstudio.com/Grove-Moisture_Sensor/
 #define MOISTURE_PIN A0
 
-// Light
-#define LIGHT_PIN 0
+/*********** Actuator Connectors ************/
+#define RGB_PIN 0
+#define RGB_PIN2 15
 
-// ChainableRGB
-// #define RGB_PIN A2
-// #define RGB_PIN2 A3
+#define NUM_LEDS 5
 
-//Defines the num of LEDs used, The undefined
-//will be lost control.
-// #define NUM_LEDS  5
-// ChainableLED leds(RGB_PIN, RGB_PIN2, NUM_LEDS);
+ChainableLED leds(RGB_PIN, RGB_PIN2, NUM_LEDS);
 
 // Variables to update
 float moisture = 0;
-float light = 0;
 float humidity = 0;
 float temperature = 0;
+byte power = 0;
 String myStatus = "";
 
 bool giveSomeWater = false;
-bool debug = false;
 
 int updateThingspeakCounter = 0;
 
@@ -76,6 +74,7 @@ void connectWifi()
 
 void updateThinkSpeak()
 {
+  Serial.println("ThingSpeak Update initiated");
   // Check for error and return
   if (isnan(humidity) || isnan(temperature))
   {
@@ -83,7 +82,6 @@ void updateThinkSpeak()
   }
   // set the fields with the values
   ThingSpeak.setField(1, moisture);
-  ThingSpeak.setField(2, light);
   ThingSpeak.setField(3, temperature);
   ThingSpeak.setField(4, humidity);
   ThingSpeak.setField(8, giveSomeWater);
@@ -139,8 +137,6 @@ void printToConsole()
 
   Serial.print("Moisture = ");
   Serial.println(moisture);
-  Serial.print("Light = ");
-  Serial.println(light);
   Serial.print("Temperature = ");
   Serial.println(temperature);
   Serial.print("Humidity = ");
@@ -151,7 +147,9 @@ void setup()
 {
   Serial.begin(115200);
   if (debug)
+  {
     Serial.println("Setup started");
+  }
 
   // Setup DHTesp for Temperature and Humidity Sensor
   dht.setup(DHT_PIN, DHTesp::DHT_TYPE);
@@ -182,8 +180,6 @@ void setup()
   client.onSubscribe(handleSubscribed);
   client.onData(handleDataReceived);
   client.begin(mqttBrokerUri);
-
-  Serial.println("Setup finished");
 }
 void loop()
 {
@@ -200,11 +196,25 @@ void loop()
   if (giveSomeWater)
   {
     if (debug)
+    {
       Serial.println("Have to give some water!");
-    //leds.setColorHSB(1, 0.0, 1.0, 0.5);
+    }
+
+    for (byte i = 0; i < NUM_LEDS; i++)
+    {
+      if (i % 2 == 0)
+        leds.setColorRGB(i, power, 0, 0);
+      else
+        leds.setColorRGB(i, 0, 255 - power, 0);
+    }
+    power += 10;
+    delay(10);
+  }
+  else
+  {
+    leds.setColorRGB(0, 0, 0, 0);
   }
   moisture = analogRead(MOISTURE_PIN);
-  light = analogRead(LIGHT_PIN);
   humidity = dht.getHumidity();
   temperature = dht.getTemperature();
 
