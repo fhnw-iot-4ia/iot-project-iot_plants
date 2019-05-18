@@ -27,6 +27,8 @@ Source code consists of: Arduino, Java Service and Angular Webserver
 
 [Plants Webservice used on Webserver](/connected-plants-web/src)
 
+Furthermore, we implementen an own MQTT Broker on a Raspberry Pi 3+, running hassio Home Assistant and DuckDNS Service for serving mqtt://mqtt.cudemo.ch. The MQTT Service has been setup to only allow authenticated connections. 
+
 ### Reference model (has to be updated)
 
 ![Reference Model, Connected Plants](Images/Plants_ReferenceModel.png)

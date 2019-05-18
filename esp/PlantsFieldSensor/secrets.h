@@ -1,11 +1,10 @@
-// Use this file to store all of the private credentials 
-// and connection details
+// Use this file to store all of the private credentials and connection details (WIFI; MQTT)
 
-#define SECRET_SSID "Cud"	// replace MySSID with your WiFi network name
-#define SECRET_PASS "babedibubi"	// replace MyPassword with your WiFi password
+#define SECRET_SSID "Cud"	
+#define SECRET_PASS "babedibubi"	
 
-#define SECRET_CH_ID 753425			// replace 0000000 with your channel number
-#define SECRET_WRITE_APIKEY "BB2ON9HLYS6H5SRA"   // replace XYZ with your channel write API Key
+#define SECRET_CH_ID 753425		
+#define SECRET_WRITE_APIKEY "BB2ON9HLYS6H5SRA"   // replace with your channel write API Key
 
 #define MQTT_BROKER_HOST "mqtt.cudemo.ch"
 #define MQTT_PORT "16290"
