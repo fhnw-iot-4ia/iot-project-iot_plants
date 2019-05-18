@@ -33,7 +33,7 @@ Source code consists of: Arduino, Java Service and Angular Webserver
 
 
 ##### Setup software
-* Edit [secrets.h](esp/readSensorTest/secrets.h) to set your ThingSpeak API Keys and WIFI Settings 
+* Edit [secrets.h](esp/PlantsFieldSensor/secrets.h) to set your ThingSpeak API Keys and WIFI Settings 
 
 
 ### Presentation
