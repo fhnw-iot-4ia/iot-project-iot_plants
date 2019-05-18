@@ -4,26 +4,41 @@ import ch.fhnw.iot.connectedPlants.raspberry.factory.ServiceFactory;
 import ch.fhnw.iot.connectedPlants.raspberry.factory.ThingSpeakFactory;
 import ch.fhnw.iot.connectedPlants.raspberry.service.Service;
 import ch.fhnw.iot.connectedPlants.raspberry.util.ServiceUtil;
+import org.apache.catalina.Lifecycle;
+import org.apache.catalina.LifecycleEvent;
+import org.apache.catalina.LifecycleListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 import java.util.Properties;
 
-@SpringBootApplication
-public class PlantApplication extends SpringBootServletInitializer {
-    private static Logger logger = LogManager.getLogger(PlantApplication.class.getName());
+public class ConnectedPlants implements LifecycleListener {
 
-    public static void main(String[] args) throws Exception {
+    @Override
+    public void lifecycleEvent(LifecycleEvent lifeCE) {
+        if (Lifecycle.AFTER_START_EVENT.equals(lifeCE.getType())) {
+            System.out.println("************ TomcatHostLifecycleListener: After Start Event");
+        }
+        System.out.println("grizi");
+
+    }
+    private static Logger logger = LogManager.getLogger(ConnectedPlants.class.getName());
+
+    public void init() {
         logger.info("Application started");
-        SpringApplication.run(PlantApplication.class, args);
-        initServices();
+        System.out.println("started");
+
+        try {
+            initServices();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
     public static void initServices() throws Exception {
+
+        logger.info("Start refresh service");
         Properties props = ServiceUtil.loadProperty();
 
         ServiceFactory serviceFactory = new ThingSpeakFactory();

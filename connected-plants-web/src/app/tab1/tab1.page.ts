@@ -74,8 +74,9 @@ export class Tab1Page {
       'threshold': this.newThreshold,
       'measuredValue': this.measuredValue
     }
+    this.threshold = this.newThreshold;
     return this.http.put<ConnectedPlants>(this.url + '/' + this.id, result, httpOptions).subscribe(() => {
-      location.reload()
+      // window.location.reload();
     })
   }
 
