@@ -1,6 +1,7 @@
 # IoT Engineering
 ## Project Connected Plants
-[![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/)
+A moisture and environmental sensor for your plants to get a information, whenever there is need for action. 
+
 ## Introduction
 This project is part of the [IoT Engineering](../../../fhnw-iot) course.
 
@@ -11,30 +12,29 @@ This project is part of the [IoT Engineering](../../../fhnw-iot) course.
 * Both team members are able to explain the project.
 
 ### Team members
-* @Prinzenrolle90, Mischa Imbiscuso
-* @cudemo, Vito Cudemo
+* [@Prinzenrolle90], Mischa Imbiscuso
+* [@cudemo], Vito Cudemo
 
 ## Deliverables
 The following deliverables are mandatory.
+
+### Source code
+Source code consists of: Arduino, Java Service and Angular Webserver
+
+[PlantsFieldSensor for ESP8266](esp/PlantsFieldSensor/PlantsFieldSensor.ino)
+
+[Plants Service Java used on Raspberry or cloud](/raspberry-java/src/main/java/ch/fhnw/iot/connectedPlants/raspberry/PlantsApplication.java)
+
+[Plants Webservice used on Webserver](/connected-plants-web/src/main.ts)
 
 ### Reference model
 
 ![Reference Model, Connected Plants](Images/Plants_ReferenceModel.png)
 
-### Source code
-Source code, Arduino C, JS or Python, committed to (this) project repo.
 
-[Arduino/MY_TEAM_PROJECT/MY_TEAM_PROJECT.ino](Arduino/MY_TEAM_PROJECT_FILE.ino)
+##### Setup software
+* Edit [secrets.h](esp/readSensorTest/secrets.h) to set your ThingSpeak API Keys and WIFI Settings 
 
-[Nodejs/MY_TEAM_PROJECT.js](Nodejs/MY_TEAM_PROJECT_FILE.js)
-
-[Python/MY_TEAM_PROJECT.py](Nodejs/MY_TEAM_PROJECT_FILE.py)
-
-... (adapt as required)
-
-1) Embedded code / microcontroller firmware.
-2) Glue Code used on the gateway or "in the cloud".
-3) App or Web UI code, or IoT platform setup steps.
 
 ### Presentation
 4-slide presentation, PDF format, committed to (this) project repo.
@@ -49,11 +49,19 @@ Source code, Arduino C, JS or Python, committed to (this) project repo.
 ### Live demo
 Working end-to-end prototype, "device to cloud", part of your 10' presentation.
 
-[https://MY_TEAM_PROJECT_DEMO_HOST:PORT/](https://MY_TEAM_PROJECT_DEMO_HOST:PORT/)
+[https://plants.imbiscuso.ch/](https://plants.imbiscuso.ch)
 
-1) Sensor input on a IoT device triggers an event.
-2) The event or measurement shows up online, in an app or Web client.
-3) The event triggers actuator output on the same or on a separate IoT device.
+1) ESP8266 is used in field to monitor plants.
+2) Every x minutes, the ESP sends the sensor data to ThingSpeak API.
+3) The Webservice (written in Angular) displays all relevant information to the user and gives the possibility to set the threshold for moisture-sensor based on plant.
+4) The Java Service takes the threshold and monitors the sensor information from ThingSpeak API. 
+5) If the threshold is reached, the Service sents the "Give some water" signal to the ESP using MQTT service, which was set up on a Raspberry Pi 3+ running hassio home assistant: mqtt.cudemo.ch
+6) Furthermore, the service sents an SMS to the users.
+7) The ESP then reacts to the event. 
+
 
 ## Submission deadline
 Commit and push to (this) project repo before Demo Day, _03.06.2019, 00:00_.
+
+## Bibliography
+* https://www.instructables.com/id/ESP8266-Soil-Moisture-Sensor-With-Arduino-IDE/
