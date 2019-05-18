@@ -1,9 +1,9 @@
-#include <ChainableLED.h>       // v1.0.0
-#include <DHTesp.h>             // v1.0.9
-#include <ESP8266WiFi.h>        // v1.0.0
-#include <ESP8266MQTTClient.h>  // v1.0.4
-#include <time.h>               // v2.5.0
-#include <ThingSpeak.h>         // v1.5.0
+#include <ChainableLED.h>      // v1.0.0
+#include <DHTesp.h>            // v1.0.9
+#include <ESP8266WiFi.h>       // v1.0.0
+#include <ESP8266MQTTClient.h> // v1.0.4
+#include <time.h>              // v2.5.0
+#include <ThingSpeak.h>        // v1.5.0
 #include "secrets.h"
 
 // Enable or disable DEBUG Mode to sysout to console
@@ -51,7 +51,9 @@ String myStatus = "";
 
 bool giveSomeWater = false;
 
+// Counter: 5 Seconds = 1 round. ~12 rounds = 1 Minute
 int updateThingspeakCounter = 0;
+int updateThingspeakRounds = 12;
 
 void connectWifi()
 {
@@ -151,8 +153,6 @@ void setup()
   // Setup DHTesp for Temperature and Humidity Sensor
   dht.setup(DHT_PIN, DHTesp::DHT_TYPE);
 
-  connectWifi();
-
   // Set timezone
   const int timezone = 0;
   const int dst_off = 0;
@@ -162,6 +162,8 @@ void setup()
   {
     delay(500);
   }
+
+  connectWifi();
 
   ThingSpeak.begin(wifiClient); // Initialize ThingSpeak
 
@@ -218,9 +220,12 @@ void loop()
   if (debug)
   {
     printToConsole();
+    char thingSpeakRound[64];
+    sprintf(thingSpeakRound, "Update ThingSpeak reached %s of %s", updateThingspeakCounter, updateThingspeakRounds);
+    Serial.println(thingSpeakRound);
   }
 
-  if (updateThingspeakCounter > 60000)
+  if (updateThingspeakCounter > updateThingspeakRounds)
   {
     updateThinkSpeak();
     updateThingspeakCounter = 0;
