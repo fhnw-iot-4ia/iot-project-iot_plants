@@ -5,7 +5,7 @@ plugins {
 }
 
 
-group 'connected-plants'
+group 'connected-plants-service'
 
 sourceCompatibility = 11
 

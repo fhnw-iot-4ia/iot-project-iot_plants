@@ -11,8 +11,8 @@ import javax.servlet.annotation.WebListener;
 import java.util.Properties;
 
 @WebListener
-public class ConnectedPlants {
-    private static Logger logger = LogManager.getLogger(ConnectedPlants.class.getName());
+public class ConnectedPlantsService {
+    private static Logger logger = LogManager.getLogger(ConnectedPlantsService.class.getName());
 
 
     public static void main(String[] args) {

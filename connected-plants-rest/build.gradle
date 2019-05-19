@@ -6,7 +6,7 @@ plugins {
 
 apply plugin: 'io.spring.dependency-management'
 
-group = 'connectedPlants-raspberry'
+group = 'connected-plants-rest'
 sourceCompatibility = '11'
 
 repositories {
