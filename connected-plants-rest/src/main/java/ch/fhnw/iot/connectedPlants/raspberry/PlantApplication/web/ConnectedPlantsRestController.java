@@ -14,7 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/connected-plants")
 @CrossOrigin
-public class ConnectedPlantsController {
+public class ConnectedPlantsRestController {
 
     @Autowired
     private ConnectedPlantsRepository connectedPlantRepository;

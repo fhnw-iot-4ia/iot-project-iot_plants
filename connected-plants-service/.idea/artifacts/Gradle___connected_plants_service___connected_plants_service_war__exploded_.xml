@@ -1,0 +1,51 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Gradle : connected-plants-service : connected-plants-service.war (exploded)">
+    <output-path>$PROJECT_DIR$/build/libs/exploded/connected-plants-service.war</output-path>
+    <properties id="gradle-properties">
+      <options external-project-path="$PROJECT_DIR$">
+        <manifest>TWFuaWZlc3QtVmVyc2lvbjogMS4wDQoNCg==</manifest>
+      </options>
+    </properties>
+    <root id="root">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/build/libs/exploded/connected-plants-service.war/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="connected-plants-service.main/web/Web Gradle : connected-plants-service.war" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="connected-plants-service.main" />
+          <element id="dir-copy" path="$PROJECT_DIR$/out/production/resources" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Gradle: com.amazonaws:aws-java-sdk-sns:1.11.550" />
+          <element id="library" level="project" name="Gradle: com.amazonaws:aws-java-sdk-sqs:1.11.550" />
+          <element id="library" level="project" name="Gradle: com.amazonaws:aws-java-sdk-core:1.11.550" />
+          <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpclient:4.5.5" />
+          <element id="library" level="project" name="Gradle: org.apache.tomcat:catalina:6.0.53" />
+          <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.8.5" />
+          <element id="library" level="project" name="Gradle: org.apache.logging.log4j:log4j-core:2.11.2" />
+          <element id="library" level="project" name="Gradle: org.apache.logging.log4j:log4j-slf4j18-impl:2.11.2" />
+          <element id="library" level="project" name="Gradle: org.apache.logging.log4j:log4j-api:2.11.2" />
+          <element id="library" level="project" name="Gradle: org.slf4j:slf4j-ext:1.8.0-beta4" />
+          <element id="library" level="project" name="Gradle: org.slf4j:slf4j-api:1.8.0-beta4" />
+          <element id="library" level="project" name="Gradle: org.mongodb:mongo-java-driver:3.11.0-beta2" />
+          <element id="library" level="project" name="Gradle: org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.1" />
+          <element id="library" level="project" name="Gradle: org.apache.httpcomponents:httpcore:4.4.9" />
+          <element id="library" level="project" name="Gradle: commons-logging:commons-logging:1.2" />
+          <element id="library" level="project" name="Gradle: commons-codec:commons-codec:1.10" />
+          <element id="library" level="project" name="Gradle: org.apache.tomcat:coyote:6.0.53" />
+          <element id="library" level="project" name="Gradle: org.apache.tomcat:servlet-api:6.0.53" />
+          <element id="library" level="project" name="Gradle: org.apache.tomcat:juli:6.0.53" />
+          <element id="library" level="project" name="Gradle: org.apache.tomcat:annotations-api:6.0.53" />
+          <element id="library" level="project" name="Gradle: com.amazonaws:jmespath-java:1.11.550" />
+          <element id="library" level="project" name="Gradle: software.amazon.ion:ion-java:1.0.2" />
+          <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.6.7.2" />
+          <element id="library" level="project" name="Gradle: com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.6.7" />
+          <element id="library" level="project" name="Gradle: joda-time:joda-time:2.8.1" />
+          <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.6.0" />
+          <element id="library" level="project" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.6.7" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

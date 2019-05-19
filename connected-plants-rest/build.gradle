@@ -18,10 +18,4 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	compileOnly 'javax.servlet:javax.servlet-api:3.1.0'
-}
-
-
-configurations {
-	compile.exclude module: 'spring-boot-starter-tomcat'
 }
