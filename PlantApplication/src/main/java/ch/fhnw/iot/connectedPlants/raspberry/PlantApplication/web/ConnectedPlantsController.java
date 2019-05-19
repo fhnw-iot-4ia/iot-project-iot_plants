@@ -1,7 +1,7 @@
-package ch.fhnw.iot.connectedPlants.raspberry.web;
+package ch.fhnw.iot.connectedPlants.raspberry.PlantApplication.web;
 
-import ch.fhnw.iot.connectedPlants.raspberry.domain.ConnectedPlants;
-import ch.fhnw.iot.connectedPlants.raspberry.domain.ConnectedPlantsRepository;
+import ch.fhnw.iot.connectedPlants.raspberry.PlantApplication.domain.ConnectedPlants;
+import ch.fhnw.iot.connectedPlants.raspberry.PlantApplication.domain.ConnectedPlantsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;

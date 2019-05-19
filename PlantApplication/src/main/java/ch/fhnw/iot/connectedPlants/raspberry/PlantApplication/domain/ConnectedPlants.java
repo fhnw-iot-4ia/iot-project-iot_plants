@@ -1,5 +1,4 @@
-package ch.fhnw.iot.connectedPlants.raspberry.domain;
-
+package ch.fhnw.iot.connectedPlants.raspberry.PlantApplication.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

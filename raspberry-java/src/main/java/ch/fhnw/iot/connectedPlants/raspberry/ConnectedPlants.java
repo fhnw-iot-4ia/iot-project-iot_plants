@@ -6,24 +6,29 @@ import ch.fhnw.iot.connectedPlants.raspberry.service.Service;
 import ch.fhnw.iot.connectedPlants.raspberry.util.ServiceUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
+import javax.servlet.annotation.WebListener;
 import java.util.Properties;
 
-@SpringBootApplication
-public class PlantApplication extends SpringBootServletInitializer {
-    private static Logger logger = LogManager.getLogger(PlantApplication.class.getName());
+@WebListener
+public class ConnectedPlants {
+    private static Logger logger = LogManager.getLogger(ConnectedPlants.class.getName());
 
-    public static void main(String[] args) throws Exception {
+
+    public static void main(String[] args) {
         logger.info("Application started");
-        SpringApplication.run(PlantApplication.class, args);
-        initServices();
+
+        try {
+            initServices();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
-    public static void initServices() throws Exception {
+    private static void initServices() throws Exception {
+
+        logger.info("Start refresh service");
         Properties props = ServiceUtil.loadProperty();
 
         ServiceFactory serviceFactory = new ThingSpeakFactory();

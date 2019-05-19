@@ -5,27 +5,27 @@ import ch.fhnw.iot.connectedPlants.raspberry.entity.Channel;
 import ch.fhnw.iot.connectedPlants.raspberry.entity.Feed;
 import ch.fhnw.iot.connectedPlants.raspberry.entity.ThingSpeakResult;
 import ch.fhnw.iot.connectedPlants.raspberry.service.observer.ObserverObject;
+import ch.fhnw.iot.connectedPlants.raspberry.service.observer.PushService;
 import ch.fhnw.iot.connectedPlants.raspberry.util.ServiceUtil;
 import org.apache.http.Header;
 import org.apache.http.message.BasicHeader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bson.Document;
-import org.jetbrains.annotations.NotNull;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class ThingSpeackService implements Service {
+public class ThingSpeakService implements Service {
     private static Logger logger = LogManager.getLogger(CallService.class.getName());
     private static String MOISTURE_FIELD = "moisture";
 
     private final List<ObserverObject> observers = new ArrayList<>();
     private final Properties prop = ServiceUtil.loadProperty();
 
-    public ThingSpeackService(List<ObserverObject> obj) {
+    public ThingSpeakService(List<ObserverObject> obj) {
         if (obj == null) {
             throw new IllegalArgumentException("obj not specified");
         }
@@ -73,6 +73,9 @@ public class ThingSpeackService implements Service {
             for (ObserverObject observer : observers) {
                 observer.run();
             }
+            if (mqttValue.equals("1")) {
+                PushService.run();
+            }
         }
     }
 
@@ -106,7 +109,6 @@ public class ThingSpeackService implements Service {
         return false;
     }
 
-    @NotNull
     private double getValue(ThingSpeakResult thingSpeakResult, String value) {
         int lastElement = thingSpeakResult.getFeeds().size() - 1;
         Feed feed = thingSpeakResult.getFeeds().get(lastElement);
@@ -125,7 +127,6 @@ public class ThingSpeackService implements Service {
         return 0.0;
     }
 
-    @NotNull
     private List<Header> getHeaders(Properties prop) {
         List<Header> headers = new ArrayList<>();
 
