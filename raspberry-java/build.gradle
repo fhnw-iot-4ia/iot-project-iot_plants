@@ -1,12 +1,13 @@
 plugins {
     id 'java'
     id 'war'
+    id "com.github.johnrengelman.shadow" version "5.0.0"
 }
 
 
 group 'connected-plants'
 
-sourceCompatibility = 12
+sourceCompatibility = 11
 
 repositories {
     mavenCentral()
@@ -41,6 +42,7 @@ dependencies {
 
     // Amazon AWS
     compile("com.amazonaws:aws-java-sdk-sns:1.11.550")
+
 }
 
 task deploy(dependsOn: war) {

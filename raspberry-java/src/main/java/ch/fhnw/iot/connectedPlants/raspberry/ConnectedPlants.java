@@ -4,29 +4,19 @@ import ch.fhnw.iot.connectedPlants.raspberry.factory.ServiceFactory;
 import ch.fhnw.iot.connectedPlants.raspberry.factory.ThingSpeakFactory;
 import ch.fhnw.iot.connectedPlants.raspberry.service.Service;
 import ch.fhnw.iot.connectedPlants.raspberry.util.ServiceUtil;
-import org.apache.catalina.Lifecycle;
-import org.apache.catalina.LifecycleEvent;
-import org.apache.catalina.LifecycleListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.servlet.annotation.WebListener;
 import java.util.Properties;
 
-public class ConnectedPlants implements LifecycleListener {
-
-    @Override
-    public void lifecycleEvent(LifecycleEvent lifeCE) {
-        if (Lifecycle.AFTER_START_EVENT.equals(lifeCE.getType())) {
-            System.out.println("************ TomcatHostLifecycleListener: After Start Event");
-        }
-        System.out.println("grizi");
-
-    }
+@WebListener
+public class ConnectedPlants {
     private static Logger logger = LogManager.getLogger(ConnectedPlants.class.getName());
 
-    public void init() {
+
+    public static void main(String[] args) {
         logger.info("Application started");
-        System.out.println("started");
 
         try {
             initServices();
@@ -36,7 +26,7 @@ public class ConnectedPlants implements LifecycleListener {
     }
 
 
-    public static void initServices() throws Exception {
+    private static void initServices() throws Exception {
 
         logger.info("Start refresh service");
         Properties props = ServiceUtil.loadProperty();
