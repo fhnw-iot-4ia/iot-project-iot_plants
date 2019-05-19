@@ -57,7 +57,7 @@ task deploy(dependsOn: war) {
 
 jar {
     manifest {
-        attributes "Main-Class": "ch.fhnw.iot.connectedPlants.raspberry.ConnectedPlants"
+        attributes "Main-Class": "ch.fhnw.iot.connectedPlants.raspberry.ConnectedPlantsService"
     }
 
     from {
