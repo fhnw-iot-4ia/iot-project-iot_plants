@@ -68,11 +68,11 @@ The following setup steps are made for linux operating system:
 4) Insert initial entry: ```db.connected_plants.insert({threshold:0, measuredMoistureValue: 0, mqtt:"0", last:"01.01.1970 00:00:00"});```
 5) Import [Plants REST API](/connected-plants-rest/src/main/java/ch/fhnw/iot/connectedPlants/raspberry/PlantApplication/) into IDE and start REST service.
 6) This will start the REST API as well as Tomcat on Port 8888.
-7) Importat config is [application.properties](/connected-plants-rest/src/main/resources/application.properties). This property defines the mongoDB access
+7) Important:  MongoDB Access can be configured in [application.properties](/connected-plants-rest/src/main/resources/application.properties) property.
 
 ** _connected-plants-service_ - Service is responsible for managing threshold, get ThingSpeak fields and write command for ESP using MQTT**
 1) Import [Plants Service](/connected-plants-service/src/main/java/ch/fhnw/iot/connectedPlants/raspberry/) into IDE and start Plants Service
-2) Important config is [config.properties](/connected-plants-service/src/main/resources/config.properties). This property defines the Thingspeak URL, AWS Login, MQTT Login, Service intervall and the mongoDB.
+2) Important: ThingSpeak URL, AWS Login, MQTT Login, service intervall as well as MongoDB settings can be configured in [config.properties](/connected-plants-service/src/main/resources/config.properties) property.
 
 ** _connected-plants-web_ - Webservice to use on client. Thanks to the webservice, a user can change the threshold for any given plant he/she wants to monitor/water**
 1) In terminal, change to directory [Plants Webservice (Angular)](/connected-plants-web)
