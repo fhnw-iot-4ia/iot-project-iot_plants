@@ -61,7 +61,7 @@ Actuator |Chainable RGB LED |D4, D5 -> 0, 15
 The cloud consists of three separate projects. The service can be run on any operating machine and hardware with internet connection. For the projects purpose, we set up the whole project also on our private servers at home and using our private domains. 
 The following setup steps are made for linux operating system:
 
-* connected-plants-rest - REST-API for Cloud, the bridge for Webservice and PlantsService. Setup: 
+** _connected-plants-rest_ - REST-API for Cloud, the bridge for Webservice and PlantsService. Setup: **
 1) Install mongodb: ```sudo apt install mongodb-server mongodb-clients```
 2) Connect to mongo: ```mongod```
 3) Create databse: ```use connected_plants```
@@ -69,10 +69,10 @@ The following setup steps are made for linux operating system:
 5) Import [Plants REST API](/connected-plants-rest/src/main/java/ch/fhnw/iot/connectedPlants/raspberry/PlantApplication/) into IDE and start REST service.
 6) This will start the REST API as well as Tomcat on Port 8080.
 
-* connected-plants-service - Service is responsible for managing threshold, get ThingSpeak fields and write command for ESP using MQTT
+** _connected-plants-service_ - Service is responsible for managing threshold, get ThingSpeak fields and write command for ESP using MQTT**
 1) Import [Plants Service](/connected-plants-service/src/main/java/ch/fhnw/iot/connectedPlants/raspberry/) into IDE and start Plants Service
 
-* connected-plants-web
+** _connected-plants-web_ - Webservice to use on client. Thanks to the webservice, a user can change the threshold for any given plant he/she wants to monitor/water**
 1) In terminal, change to directory [Plants Webservice (Angular)](/connected-plants-web)
 2) Run following commands to start Webservice
 ```
