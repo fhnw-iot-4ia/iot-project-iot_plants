@@ -16,26 +16,33 @@ This project is part of the [IoT Engineering](../../../fhnw-iot) course.
 * [@cudemo], Vito Cudemo
 
 ## Deliverables
-The following deliverables are mandatory.
+Following deliverables are given: 
 
-### Source code
-Source code consists of: Arduino device for sensor information, Java Service running on Tomcat with REST API and Angular Webserver https://plants.imbiscuso.ch
-
-[PlantsFieldSensor for ESP8266](esp/PlantsFieldSensor/PlantsFieldSensor.ino)
-
-[Plants Service Java used on Raspberry or cloud](/raspberry-java/src/main/java/ch/fhnw/iot/connectedPlants/raspberry/) 
-
-[Plants Webservice used on Webserver](/connected-plants-web/src)
-
-Furthermore, we implemented an own MQTT Broker on a Raspberry Pi 3+, running hassio Home Assistant and DuckDNS Service for serving mqtt://mqtt.cudemo.ch:16290. The MQTT Service has been setup to only allow authenticated connections. User: esp / raspberry, password: iotmqtt
+1) Reference model / Domain overview
+2) Source code of ESP8266 plants service as well as cloud infrastructure code
+3) Setup steps to start the whole project on your favorite machine
+4) Short presentation
+5) Live demo steps
 
 ### Reference model / Domain overview
 
 ![Reference Model, Connected Plants](Images/Plants_ReferenceModel.png)
 
+### Source code
+Source code consists of: Arduino device for sensor information, Java Service running on Tomcat with REST API and Angular Webserver https://plants.imbiscuso.ch
 
-##### Setup software
-* ESP8266
+* [PlantsFieldSensor for ESP8266](esp/PlantsFieldSensor/PlantsFieldSensor.ino)
+* [Secrets File for PlantsFieldSensor](esp/PlantsFieldSensor/secrets.h)
+* [Plants REST API](/connected-plants-rest/src/main/java/ch/fhnw/iot/connectedPlants/raspberry/PlantApplication/)
+* [Plants Service (Java used on Raspberry or cloud)](/connected-plants-service/src/main/java/ch/fhnw/iot/connectedPlants/raspberry/) 
+* [Plants Webservice (Angular)](/connected-plants-web)
+
+Furthermore, we implemented an own MQTT Broker on a Raspberry Pi 3+, running hassio Home Assistant and DuckDNS Service for serving mqtt://mqtt.cudemo.ch:16290. The MQTT Service has been setup to only allow authenticated connections. User: esp / raspberry, password: iotmqtt
+The Cloud runs with any MQTT broker. 
+
+
+### Setup software
+##### ESP8266
 
 1) Edit [secrets.h](esp/PlantsFieldSensor/secrets.h) to set your ThingSpeak API Keys and WIFI Settings 
 2) Attach sensors and actuator to ESP8266 
@@ -50,9 +57,33 @@ Actuator | Chainable RGB LED | D4, D5 -> 0, 15
 
 3) Attach to energy source and check ThingSpeak. Otherwise enable debug mode on ESP source-code
 
-* Plants Service (can be run on Raspberry)
+##### Cloud
 
-###TODO IMBISCUSO
+The cloud consists of three separate projects. The service can be run on any operating machine and hardware with internet connection. For the projects purpose, we set up the whole project also on our private servers at home and using our private domains. 
+The following setup steps are made for linux operating system:
+
+* connected-plants-rest - REST-API for Cloud, the bridge for Webservice and PlantsService. Setup: 
+1) Install mongodb: ```sudo apt install mongodb-server mongodb-clients```
+2) Connect to mongo: ```mongod```
+3) Create databse: ```use connected_plants```
+4) Insert initial entry: ```db.connected_plants.insert({threshold:0, measuredMoistureValue: 0, mqtt:"0", last:"01.01.1970 00:00:00"});```
+5) Import [Plants REST API](/connected-plants-rest/src/main/java/ch/fhnw/iot/connectedPlants/raspberry/PlantApplication/) into IDE and start REST service.
+6) This will start the REST API as well as Tomcat on Port 8080.
+
+* connected-plants-service - Service is responsible for managing threshold, get ThingSpeak fields and write command for ESP using MQTT
+1) Import [Plants Service](/connected-plants-service/src/main/java/ch/fhnw/iot/connectedPlants/raspberry/) into IDE and start Plants Service
+
+* connected-plants-web
+1) In terminal, change to directory [Plants Webservice (Angular)](/connected-plants-web)
+2) Run following commands to start Webservice
+```
+npm install -g ionic
+npm install -g angular
+npm install
+ionic serve
+```
+3) This will start the Webservice on Port 8100: http://localhost:8100/
+
 
 ### Presentation
 4-slide presentation, PDF format, committed to (this) project repo.
