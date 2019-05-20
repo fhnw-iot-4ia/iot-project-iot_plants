@@ -36,6 +36,7 @@ public class ConnectedPlantsRestController {
             if (toUpdate.isPresent()) {
                 ConnectedPlants result = toUpdate.get();
                 result.setThreshold(newPlant.getThreshold());
+                result.setLast("01.01.1970 00:00:00");
                 connectedPlantRepository.save(result);
             }
         } else {
