@@ -83,6 +83,7 @@ ionic serve
 ```
 3) This will start the Webservice on Port 8100: http://localhost:8100/
 
+![Plants Webservice](Images/Plants_Webservice.png)
 
 ### Presentation
 4-slide presentation, PDF format, committed to (this) project repo.
