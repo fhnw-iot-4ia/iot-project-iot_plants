@@ -42,7 +42,7 @@ The Cloud runs with any MQTT broker.
 
 
 ### Setup software
-##### ESP8266
+##### ***** ESP8266 *****
 
 1) Edit [secrets.h](esp/PlantsFieldSensor/secrets.h) to set your ThingSpeak API Keys and WIFI Settings 
 2) Attach sensors and actuator to ESP8266 
@@ -50,13 +50,13 @@ The Cloud runs with any MQTT broker.
 
 Type | Name | Pin ESP8266
 --- | --- | ---
-Sensor |DHT11 Temperature & Humidity Sensor | D2 -> 2
-Sensor |Grove Moisture Sensor | A0
-Actuator |Chainable RGB LED | D4, D5 -> 0, 15
+Sensor |DHT11 Temperature & Humidity Sensor |D2 -> 2
+Sensor |Grove Moisture Sensor |A0
+Actuator |Chainable RGB LED |D4, D5 -> 0, 15
 
 3) Attach to energy source and check ThingSpeak. Otherwise enable debug mode on ESP source-code
 
-##### Cloud
+##### ***** Cloud *****
 
 The cloud consists of three separate projects. The service can be run on any operating machine and hardware with internet connection. For the projects purpose, we set up the whole project also on our private servers at home and using our private domains. 
 The following setup steps are made for linux operating system:
