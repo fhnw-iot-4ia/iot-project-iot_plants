@@ -8,6 +8,7 @@ import { Config } from './../config'
 import { ConnectedPlants } from './../connected-plants'
 
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { AngularDelegate } from '@ionic/angular';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
@@ -29,7 +30,7 @@ export class Tab1Page {
   newThreshold: number;
   angForm: FormGroup;
   todo = {
-    'title':''
+    'title': ''
   }
 
   constructor(private http: HttpClient, private plantService: PlantServiceService, private fb: FormBuilder
@@ -74,6 +75,11 @@ export class Tab1Page {
       'threshold': this.newThreshold,
       'measuredValue': this.measuredValue
     }
+    var numbers = new RegExp(/^[0-9]+$/);
+    var newThresholdAsString = this.newThreshold.toString;
+    if (isNaN(this.newThreshold)) {
+      alert("new value is not a number")
+    } else { }
     this.threshold = this.newThreshold;
     return this.http.put<ConnectedPlants>(this.url + '/' + this.id, result, httpOptions).subscribe(() => {
       // window.location.reload();
