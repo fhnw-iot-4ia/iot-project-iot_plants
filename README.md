@@ -59,7 +59,11 @@ Source code consists of: Arduino device for sensor information, Java Service run
 * [Plants Webservice (Angular)](/connected-plants-web)
 
 Furthermore, we implemented an own MQTT Broker on a Raspberry Pi 3+, running hassio Home Assistant and DuckDNS Service for serving mqtt://mqtt.cudemo.ch:16290. The MQTT Service has been setup to only allow authenticated connections. User: esp / raspberry, password: iotmqtt
-The Cloud runs with any MQTT broker. 
+The Cloud runs with any MQTT broker.
+
+You can find all the backend configuration files for the domains as well as hass.io mqtt broker under
+
+* [Configs Webserver](configs-webserver/)
 
 
 ### Setup software
