@@ -39,6 +39,15 @@ This projects target was to create an ecosystem for monitoring plants. A Arduino
 
 ![Reference Model, Connected Plants](Images/Plants_ReferenceModel.png)
 
+### Hardware
+
+* [Feather Huzzah ESP8266](https://github.com/tamberg/fhnw-iot/wiki/Feather-Huzzah-ESP8266)
+* [Grove Particle Shield](https://github.com/tamberg/fhnw-iot/wiki/Grove-Adapters#grove-shield-for-feather)
+* [Grove Moisture Sensor](http://wiki.seeedstudio.com/Grove-Moisture_Sensor/)
+* [Temperature & Humidity Sensor (DHT11)](https://github.com/tamberg/fhnw-iot/wiki/Grove-Sensors#temperature--humidity-sensor)
+* [Chainable RGB LED](https://github.com/tamberg/fhnw-iot/wiki/Grove-Actuators#chainable-rgb-led)
+* [Raspberry Pi Zero W](https://github.com/tamberg/fhnw-iot/wiki/Raspberry-Pi-Zero-W)
+
 
 ### Source code
 Source code consists of: Arduino device for sensor information, Java Service running on Tomcat with REST API and Angular Webserver https://plants.imbiscuso.ch
