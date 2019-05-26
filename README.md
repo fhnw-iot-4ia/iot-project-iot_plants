@@ -102,9 +102,9 @@ ionic serve
 
 ### Sequence diagram
 
-Das Sequenzdiagramm sieht nun folgendermassen aus: 
+Summarized, the sequence diagram now looks as follows:
 
-![Plants Sequenzdiagramm](Images/Plants_Sequenzdiagramm.jpg)
+![Plants Sequenzdiagramm](Images/Plants_SequenceDiagram.png)
 
 ### Presentation
 4-slide presentation, PDF format, committed to (this) project repo.
