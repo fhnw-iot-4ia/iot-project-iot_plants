@@ -1,6 +1,6 @@
 # IoT Engineering
 ## Project Connected Plants
-A moisture and environmental sensor for your plants to get a information, whenever there is need for action. 
+A environmental sensor for your plants to monitor your plants health and get notified, whenever there is need for action. 
 
 ## Introduction
 This project is part of the [IoT Engineering](../../../fhnw-iot) course.
