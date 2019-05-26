@@ -24,9 +24,21 @@ Following deliverables are given:
 4) Short presentation
 5) Live demo steps
 
+### Use Case
+
+This projects target was to create an ecosystem for monitoring plants. A Arduino enabled board has been used, together with sensors as well as actuators, to indicate when a plants moisture level reaches a 'dangerous' value. Following are some key data: 
+
+* A Webservice gives the possibility to check all measured values. 
+* The complete backend service for this setup runs as a cloud service. 
+* The user gets a SMS / E-Mail notification, indicating that a plant is low on water. 
+* The Arduino board can use WiFi or LoRaWAN connection, based on the given use case. 
+
+
+
 ### Reference model / Domain overview
 
 ![Reference Model, Connected Plants](Images/Plants_ReferenceModel.png)
+
 
 ### Source code
 Source code consists of: Arduino device for sensor information, Java Service running on Tomcat with REST API and Angular Webserver https://plants.imbiscuso.ch
@@ -88,6 +100,12 @@ ionic serve
 
 ![Plants Webservice](Images/Plants_Webservice.jpg)
 
+### Sequence diagram
+
+Das Sequenzdiagramm sieht nun folgendermassen aus: 
+
+![Plants Sequenzdiagramm](Images/Plants_Sequenzdiagramm.jpg)
+
 ### Presentation
 4-slide presentation, PDF format, committed to (this) project repo.
 
@@ -106,10 +124,11 @@ Working end-to-end prototype, "device to cloud", part of your 10' presentation.
 1) ESP8266 is used in field to monitor plants.
 2) Every x minutes, the ESP sends the sensor data to ThingSpeak API.
 3) The Webservice (written in Angular) displays all relevant information to the user and gives the possibility to set the threshold for moisture-sensor based on plant.
-4) The Java Service takes the threshold and monitors the sensor information from ThingSpeak API. 
-5) If the threshold is reached, the Service sents the "Give some water" signal to the ESP using MQTT service, which was set up on a Raspberry Pi 3+ running hassio home assistant: mqtt.cudemo.ch
-6) Furthermore, the service sents an SMS to the users.
+4) The Plants Service monitors the threshold as well as the sensor information from ThingSpeak API. 
+5) If the threshold is reached, the Service sents the "1" signal to the ESP using MQTT service, which was set up on a Raspberry Pi 3+ running hassio home assistant: mqtt.cudemo.ch. This signal is being repeated until the threshold is back to normal. 
+6) Furthermore, the service sents an SMS and/or e-mail notification to the users.
 7) The ESP then reacts to the event. 
+8) If the sensor information is higher than the threshold defined via webservice, the Plants service reacts to it by sending the "0" signal to the ESP using MQTT. 
 
 
 ## Submission deadline
