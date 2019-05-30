@@ -1,3 +1,20 @@
+// This plants field sensor uses various libraries from Adafruit which are given for free under the The MIT License (MIT)
+// Also, this service, developed by @author Imbiscuso Mischa, Cudemo Vito, are also given for free use under the license The MIT License (MIT)
+// Copyright (c) 2015 Adafruit Industries
+// Copyright (c) 2019 Imbiscuso Mischa, Cudemo Vito
+//
+// For a full documentation, visit https://github.com/fhnw-iot-4ia/iot-project-iot_plants
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+
 #include <ChainableLED.h>      // v1.0.0
 #include <DHTesp.h>            // v1.0.9
 #include <ESP8266WiFi.h>       // v1.0.0
@@ -51,7 +68,7 @@ String myStatus = "";
 
 bool giveSomeWater = false;
 
-// Counter: 5 Seconds = 1 round. ~12 rounds = 1 Minute
+// Counter update interval ThingSpeak: 5 Seconds = 1 round. ~12 rounds = 1 Minute
 int updateThingspeakCounter = 0;
 int updateThingspeakRounds = 12;
 
@@ -73,7 +90,8 @@ void connectWifi()
 
 void updateThinkSpeak()
 {
-  Serial.println("ThingSpeak Update initiated");
+  if (debug)
+    Serial.println("ThingSpeak Update initiated");
   // Check for error and return
   if (isnan(humidity) || isnan(temperature))
   {
