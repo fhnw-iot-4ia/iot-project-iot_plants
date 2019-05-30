@@ -25,7 +25,7 @@ public class MQTTService implements ObserverObject {
     private final String channel;
 
     public MQTTService() {
-        Properties properties = ServiceUtil.loadProperty();
+        Properties properties = ServiceUtil.properties;
         this.userName = properties.getProperty(PlantProperties.MQTT_USERNAME);
         this.password = properties.getProperty(PlantProperties.MQTT_PASSWORD);
         this.url = properties.getProperty(PlantProperties.MQTT_URL);

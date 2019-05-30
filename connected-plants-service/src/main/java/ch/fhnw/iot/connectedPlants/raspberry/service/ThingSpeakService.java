@@ -23,7 +23,7 @@ public class ThingSpeakService implements Service {
     private static String MOISTURE_FIELD = "moisture";
 
     private final List<ObserverObject> observers = new ArrayList<>();
-    private final Properties prop = ServiceUtil.loadProperty();
+    private final Properties prop = ServiceUtil.properties;
 
     public ThingSpeakService(List<ObserverObject> obj) {
         if (obj == null) {

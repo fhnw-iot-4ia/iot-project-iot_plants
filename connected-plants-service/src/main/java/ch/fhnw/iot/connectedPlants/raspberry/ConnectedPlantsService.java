@@ -14,32 +14,36 @@ import java.util.Properties;
 public class ConnectedPlantsService {
     private static Logger logger = LogManager.getLogger(ConnectedPlantsService.class.getName());
 
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         logger.info("Application started");
-
         try {
             initServices();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
+            throw e;
         }
     }
 
 
     private static void initServices() throws Exception {
-
         logger.info("Start refresh service");
-        Properties props = ServiceUtil.loadProperty();
+
+        Properties props = ServiceUtil.properties;
+        if (props == null || props.size() <= 0) {
+            logger.error("Could not load Serverproperties");
+            throw new IllegalArgumentException("Could not load Serverproperties");
+        }
 
         ServiceFactory serviceFactory = new ThingSpeakFactory();
-        Service thingSpeakService = serviceFactory.getService((String) props.get(PlantProperties.SERVICE_NAME));
-
+        Service thingSpeakService = serviceFactory.getService();
+        int intervall = Integer.parseInt(props.getProperty(PlantProperties.SERVICE_INTERVALL));
 
         while (true) {
             try {
-                // Pullt Daten von Matlab und verarbeitet diese
+                // Pullt Daten von Matlab ThingSpeak und verarbeitet diese
                 thingSpeakService.runService();
-                int intervall = Integer.parseInt(props.getProperty(PlantProperties.SERVICE_INTERVALL));
+                // Intervall immer wieder neu holen, damit Properties auch im laufenden Betrieb angepasst werden könnte
+                intervall = Integer.parseInt(props.getProperty(PlantProperties.SERVICE_INTERVALL));
                 Thread.sleep(intervall);
             } catch (Exception e) {
                 logger.error(e.getMessage());
@@ -47,5 +51,4 @@ public class ConnectedPlantsService {
             }
         }
     }
-
 }

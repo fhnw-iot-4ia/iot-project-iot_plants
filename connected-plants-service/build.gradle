@@ -4,7 +4,6 @@ plugins {
     id "com.github.johnrengelman.shadow" version "5.0.0"
 }
 
-
 group 'connected-plants-service'
 
 sourceCompatibility = 11
@@ -26,9 +25,6 @@ dependencies {
     // Log4j
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.2'
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.2'
-    compile("org.slf4j:slf4j-api:1.8.0-beta4")
-    compile("org.slf4j:slf4j-ext:1.8.0-beta4")
-    compile("org.apache.logging.log4j:log4j-slf4j18-impl:2.11.2")
 
     //mongodb
     compile 'org.mongodb:mongo-java-driver:3.11.0-beta2'
@@ -39,22 +35,11 @@ dependencies {
     // MQTT Service
     compile group: 'org.eclipse.paho', name: 'org.eclipse.paho.client.mqttv3', version: '1.2.1'
 
-
     // Amazon AWS
     compile("com.amazonaws:aws-java-sdk-sns:1.11.550")
-
-}
-
-task deploy(dependsOn: war) {
-    copy {
-        from "build/libs"
-        into "/home/mischa/Programme/tomcat/webapps/"
-        include "*.war"
-    }
 }
 
 // Include dependent libraries in archive.
-
 jar {
     manifest {
         attributes "Main-Class": "ch.fhnw.iot.connectedPlants.raspberry.ConnectedPlantsService"

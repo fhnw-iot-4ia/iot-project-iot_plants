@@ -16,64 +16,21 @@ import java.util.Properties;
 
 public class ServiceUtil {
 
-    private static final Properties props = loadProperty();
-    private static final String dbName = props.getProperty(PlantProperties.MONGO_DB_NAME);
+    public static final Properties properties;
+
+    private static final String dbName;
 
     private static MongoCollection<Document> collection;
 
-    public static Properties loadProperty() {
-        Properties result = new Properties();
+    static {
+        properties = new Properties();
         try {
             //load a properties file from class path, inside static method
-            result.load(Service.class.getClassLoader().getResourceAsStream("config.properties"));
-        } catch (
-                IOException ex) {
+            properties.load(Service.class.getClassLoader().getResourceAsStream("config.properties"));
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
-        return result;
-    }
-
-    public static Document getDocument() {
-
-
-        // Getting the iterable object
-        FindIterable<Document> iterDoc = collection.find();
-        int i = 1;
-
-        // Getting the iterator
-        Iterator it = iterDoc.iterator();
-
-        Document result = null;
-
-        while (it.hasNext()) {
-            result = (Document) it.next();
-        }
-
-        return result;
-    }
-
-    public static void saveDocument(Document toSave, double moisture, String mqtt) {
-        if (toSave == null) {
-            throw new IllegalArgumentException("toSave is not specified");
-        }
-
-        Object id = toSave.get("_id");
-
-        collection.updateOne(Filters.eq("_id",id), Updates.set("measuredMoistureValue", moisture));
-        collection.updateOne(Filters.eq("_id",id), Updates.set("mqtt", mqtt));
-    }
-
-    public static void saveDocument(Document toSave, String lastEx) {
-        if (toSave == null) {
-            throw new IllegalArgumentException("toSave is not specified");
-        }
-
-        Object id = toSave.get("_id");
-
-        collection.updateOne(Filters.eq("_id",id), Updates.set("last", lastEx));
-    }
-
-    static {
+        dbName = properties.getProperty(PlantProperties.MONGO_DB_NAME);
 
         // Creating a Mongo client
         MongoClient mongo = new MongoClient("localhost", 27017);
@@ -83,5 +40,65 @@ public class ServiceUtil {
 
         // Retrieving a collection collectionName in this case == dbName
         collection = database.getCollection(dbName);
+        if (collection == null) {
+            throw new IllegalArgumentException(String.format("could not load collection with name: %s", dbName));
+        }
+    }
+
+    public static Document getDocument() {
+        // Getting the iterable object
+        FindIterable<Document> iterDoc = collection.find();
+        if (iterDoc == null) {
+            throw new IllegalArgumentException("could not find DB Access");
+        }
+
+        int i = 1;
+
+        Iterator it = iterDoc.iterator();
+        Document result = null;
+
+        while (it.hasNext()) {
+            result = (Document) it.next();
+        }
+
+        return result;
+    }
+
+    // Null Werte nicht erlaubt
+    public static void saveDocument(Document toSave, double moisture, String mqtt) {
+        if (toSave == null) {
+            throw new IllegalArgumentException("toSave is not specified");
+        }
+
+        if (moisture <= 0.0) {
+            throw new IllegalArgumentException("moisture is smaller then 0. This is not possible");
+        }
+
+        if (mqtt == null || mqtt.isEmpty()) {
+            throw new IllegalArgumentException("mqtt is not specified");
+        }
+
+        Object id = toSave.get("_id");
+
+        if (id != null) {
+            collection.updateOne(Filters.eq("_id", id), Updates.set("measuredMoistureValue", moisture));
+            collection.updateOne(Filters.eq("_id", id), Updates.set("mqtt", mqtt));
+        }
+    }
+
+    public static void saveDocument(Document toSave, String lastExecuteDate) {
+        if (toSave == null) {
+            throw new IllegalArgumentException("toSave is not specified");
+        }
+
+        if (lastExecuteDate == null || lastExecuteDate.isEmpty()) {
+            throw new IllegalArgumentException("lastExecuteDate is not specified");
+        }
+
+        Object id = toSave.get("_id");
+
+        if (id != null) {
+            collection.updateOne(Filters.eq("_id", id), Updates.set("last", lastExecuteDate));
+        }
     }
 }
