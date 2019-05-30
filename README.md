@@ -123,7 +123,7 @@ Summarized, the sequence diagram now looks as follows:
 4-slide presentation, PDF format, committed to (this) project repo.
 Working end-to-end prototype, "device to cloud", part of your 10' presentation.
 
-[MY_TEAM_PROJECT_PRESENTATION.pdf](MY_TEAM_PROJECT_PRESENTATION.pdf)
+[Presentation](resources/iot_plants.pdf)
 
 1) Use-case of your project.
 2) Reference model of your project.
