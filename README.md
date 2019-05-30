@@ -50,7 +50,7 @@ This projects target was to create an ecosystem for monitoring plants. A Arduino
 
 
 ### Source code
-Source code consists of: Arduino device for sensor information, Java Service running on Tomcat with REST API and Angular Webserver https://plants.imbiscuso.ch
+Source code consists of: Arduino device for sensor information, Java Service running on Tomcat with REST API and Ionic Webserver https://plants.imbiscuso.ch
 
 * [PlantsFieldSensor for ESP8266](esp/PlantsFieldSensor/PlantsFieldSensor.ino)
 * [Secrets File for PlantsFieldSensor](esp/PlantsFieldSensor/secrets.h)
