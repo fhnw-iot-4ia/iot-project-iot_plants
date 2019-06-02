@@ -120,15 +120,9 @@ Summarized, the sequence diagram now looks as follows:
 ![Plants Sequenzdiagramm](Images/Plants_SequenceDiagram.png)
 
 ### Presentation
-4-slide presentation, PDF format, committed to (this) project repo.
-Working end-to-end prototype, "device to cloud", part of your 10' presentation.
 
-[Presentation](resources/iot_plants.pdf)
+[IoT Plants presentation slides](resources/iot_plants.pdf)
 
-1) Use-case of your project.
-2) Reference model of your project.
-3) Single slide interface documentation.
-4) Issues you faced, how you solved them.
 
 ### Live demo
 
