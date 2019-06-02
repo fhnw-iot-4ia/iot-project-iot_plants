@@ -68,9 +68,9 @@ String myStatus = "";
 
 bool giveSomeWater = false;
 
-// Counter update interval ThingSpeak: 5 Seconds = 1 round. ~12 rounds = 1 Minute
+// Counter update interval ThingSpeak: ~1200 rounds = 0.5 Minute
 int updateThingspeakCounter = 0;
-int updateThingspeakRounds = 12;
+int updateThingspeakRounds = 1200;
 
 void connectWifi()
 {
@@ -238,9 +238,6 @@ void loop()
   if (debug)
   {
     printToConsole();
-    char thingSpeakRound[64];
-    sprintf(thingSpeakRound, "Update ThingSpeak reached %s of %s", updateThingspeakCounter, updateThingspeakRounds);
-    Serial.println(thingSpeakRound);
   }
 
   if (updateThingspeakCounter > updateThingspeakRounds)
